@@ -1,0 +1,19 @@
+{
+  "name": "jaypha/html-builder",
+  "description": "Framework for constructing HTML documents",
+  "type": "library",
+  "license": "BSL-1.0",
+  "require": {
+    "php": "^5.4 || ^7",
+    "jaypha/j-plate": "^1"
+  },
+  "autoload" : {
+    "psr-4": { "Jaypha\\HtmlBuilder\\": "src/" }
+  },
+  "authors": [
+    {
+      "name": "Jason den Dulk",
+      "role": "Developer"
+    }
+  ]
+}
