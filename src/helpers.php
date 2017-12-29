@@ -33,7 +33,7 @@ function nl2br(string $text)
 
 //-----------------------------------------------------------------------------
 
-function html_link(string $link, string $label = null, bool $newPage = false)
+function link(string $link, string $label = null, bool $newPage = false)
 {
   return "<a href='$link'".($newPage?" target='_blank'":"").">".($label ?? $link)."</a>";
 }
@@ -47,7 +47,7 @@ function javascript(string $script)
 
 //-----------------------------------------------------------------------------
 
-function html_img(string $src, string $alt, string $cssClass = null, string $id = null)
+function img(string $src, string $alt, string $cssClass = null, string $id = null)
 {
   return "<img src='$src' alt='$alt'".
          ($cssClass ? " class='$cssClass'":"").

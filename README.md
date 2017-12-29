@@ -4,8 +4,6 @@ Written by Jason den Dulk
 
 Framework for constructing HTML documents.
 
-### Features
-
 ## Requirements
 
 PHP v5.4.0 or greater.

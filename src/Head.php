@@ -10,7 +10,7 @@ class Head extends \Jaypha\Component
 {
   //---------------------------------------------
 
-  public $metaTags;
+  public $metaTags = [];
   public $title;
   public $description = null;
 

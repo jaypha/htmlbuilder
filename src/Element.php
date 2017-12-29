@@ -16,7 +16,11 @@ class Element extends \Jaypha\Component
   public $attributes = [];
   public $cssClasses = [];
 
-  function __construct($tagName, $template = null) { parent::__construct($template); $this->tagName = $tagName; }
+  function __construct(string $tagName = 'div', string $template = null)
+  {
+    parent::__construct($template);
+    $this->tagName = $tagName;
+  }
 
   function display()
   {
