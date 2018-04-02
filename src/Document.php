@@ -10,7 +10,7 @@ class Document
   public $head; // Head
   public $body; // HtmlElement
 
-  public $language = "en";
+  public $attributes = [];
  
   public $currentForm;
 
@@ -22,6 +22,7 @@ class Document
   {
     $this->head = new Head();
     $this->body = new Element("body");
+    $this->attributes["lang"] = "en";
     if ($pageId)
       $this->body->attributes["id"] = $pageId;
     if ($classes)
@@ -37,7 +38,15 @@ class Document
     $head = $this->head->__toString();
 
     echo "<!DOCTYPE html>";
-    echo "<html lang='$this->language'>";
+    echo "<html ";
+    if (count($this->attributes)) {
+      foreach ($this->attributes as $k => $v) {
+        echo " $k";
+        if ($v !== null)
+          echo "='",htmlspecialchars($v, ENT_QUOTES|ENT_HTML5),"'";
+      }
+    }
+    echo ">";
 
     if ($this->comment)
       echo "<!-- $comment -->";
@@ -62,16 +71,34 @@ class Document
     switch ($p)
     {
       case "title":
-        return $this->docHead->title;
+        return $this->head->title;
+      case "language":
+        return $this->lang;
+        break;
+      case "lang":
+      case "manifest":
+        if (array_key_exists($p, $this->attributes))
+          return $this->attributes[$p];
+        else
+          return null;
     }
   }
+
+  //-----------------------------------
 
   function __set($p, $v)
   {
     switch ($p)
     {
       case "title":
-        $this->docHead->title = $v;
+        $this->head->title = $v;
+        break;
+      case "language":
+        $this->attributes["lang"] = $v;
+        break;
+      case "lang":
+      case "manifest":
+        $this->attributes[$p] = $v;
         break;
     }
   }

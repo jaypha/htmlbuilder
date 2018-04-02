@@ -13,6 +13,7 @@ class Head extends \Jaypha\Component
   public $metaTags = [];
   public $title;
   public $description = null;
+  public $manifest = null;
 
   public $scriptFiles = []; // Scripts that are stored in external files.
   public $scriptText = [];
@@ -41,13 +42,19 @@ class Head extends \Jaypha\Component
     echo "<head><title>$this->title</title>";
 
     if ($this->description)
-      echo "<meta name='description' content='".htmlspecialchars($this->description),"'/>";
+      echo "<meta name='description' content='".htmlspecialchars($this->description, ENT_QUOTES|ENT_HTML5),"'/>";
 
     foreach ($this->metaTags as $m)
       $m->display();
 
+    if ($this->manifest !== null)
+      echo "<link rel='manifest' href='$this->manifest'>";
+    
     foreach ($this->cssFiles as $f)
-      echo "<link rel='stylesheet' type='text/css' href='$f'/>";
+      if (is_string($f))
+        echo "<link rel='stylesheet' type='text/css' href='$f'>";
+      else
+        echo element("link", array_merge(["rel"=> "stylesheet", "type"=>"text/css"],$f));
 
     if (count($this->cssText))
     {
@@ -58,7 +65,10 @@ class Head extends \Jaypha\Component
     }
 
     foreach ($this->scriptFiles as $f)
-      echo "<script type='text/javascript' src='$f'></script>";
+      if (is_string($f))
+        echo "<script src='$f'></script>";
+      else
+        echo element("script", $f);
 
     if (count($this->scriptText))
     {

@@ -3,25 +3,35 @@
 // Very simple example demonstating the various parts of HTML Builder.
 //----------------------------------------------------------------------------
 
+namespace Jaypha\HtmlBuilder;
+
 require "../vendor/autoload.php";
 
-use \Jaypha\HtmlBuilder;
+$doc = new Document();
 
-$doc = new HtmlBuilder\Document();
-
-$doc->body->p = "<p>Hello</p>";
+$doc->body->add("<p>Hello</p>");
 
 $doc->head->description = "Hello";
 $doc->head->title = "Hi There";
 $doc->head->cssText[] = ".p {}";
+$doc->head->scriptFiles[] = ["async", "defer", "src"=>"x'x"];
+$doc->head->scriptFiles[] = "yy";
+$doc->head->cssFiles[] = "cc";
+$doc->head->cssFiles[] = ["href"=>"bb", "async"];
 
-$t = new HtmlBuilder\Table();
+
+$t = new Table();
 $t->body[] =  ["a", "b", "c", "d"];
 $t->body[] =  ["1", "2", "3", "4"];
 $t->head[] =  ["w", "x", "y", "z"];
 
+$doc->body->add($t);
 
-$doc->body->t = $t;
+$e = new Element("a");
+$e->attributes["title"] = "B&S";
+$e->attributes["href"] = "xyz";
+
+$doc->body->add($e);
 
 $doc->display();
 

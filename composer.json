@@ -5,7 +5,7 @@
   "license": "BSL-1.0",
   "require": {
     "php": "^5.4 || ^7",
-    "jaypha/j-plate": "^1"
+    "jaypha/j-plate": "^2"
   },
   "autoload" : {
     "psr-4": { "Jaypha\\HtmlBuilder\\": "src/" }
@@ -15,5 +15,8 @@
       "name": "Jason den Dulk",
       "role": "Developer"
     }
-  ]
+  ],
+  "require-dev": {
+    "phpunit/phpunit": "^6"
+  }
 }

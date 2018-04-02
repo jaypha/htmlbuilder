@@ -9,7 +9,7 @@ namespace Jaypha\HtmlBuilder;
 
 function hidden(string $name, $value)
 {
-  return "<input type='hidden' name='$name' value='".htmlspecialchars($value)."'/>";
+  return "<input type='hidden' name='$name' value='".htmlspecialchars($value, ENT_QUOTES|ENT_HTML5)."'/>";
 }
 
 //-----------------------------------------------------------------------------
@@ -28,7 +28,7 @@ function truncated_text(string $text, int $length)
 
 function nl2br(string $text)
 {
-  return str_replace($text, "\n", "<br/>");
+  return str_replace("\n", "<br/>", $text);
 }
 
 //-----------------------------------------------------------------------------
@@ -52,6 +52,35 @@ function img(string $src, string $alt, string $cssClass = null, string $id = nul
   return "<img src='$src' alt='$alt'".
          ($cssClass ? " class='$cssClass'":"").
          ($id?" id='$id'":"")."/>";
+}
+
+//-----------------------------------------------------------------------------
+
+function make_nb(string $src)
+{
+  return str_replace(" ", "&nbsp;", $src);
+}
+
+//-----------------------------------------------------------------------------
+
+function element(string $tagName, array $attributes)
+{
+  $s = "<$tagName";
+  foreach ($attributes as $n =>$v)
+  {
+    if (is_int($n))
+      $s .= " $v";
+    else
+    {
+      $s .= " $n";
+      if ($v !== null)
+        $s .= "='".htmlspecialchars($v, ENT_QUOTES|ENT_HTML5)."'";
+    }
+  }
+  $s .= ">";
+  if (!in_array($tagName, Element::VOID_ELEMENTS))
+    $s .= "</$tagName>";
+  return $s;
 }
 
 //----------------------------------------------------------------------------
