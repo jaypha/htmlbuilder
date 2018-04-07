@@ -40,10 +40,25 @@ class HeadTest extends TestCase
 
   function testScript()
   {
+    $x = new Head();
+    $x->scriptFiles[] = "aoe.js";
+    $x->scriptFiles[] = [ "src"=>"min.js", "type"=>"text/javascript" ];
+    $x->scriptText[] = "var x='y';";
+    $x->scriptText[] = "tui();";
+    $this->assertEquals($x, "<head><title></title><script src='aoe.js'></script><script src='min.js' type='text/javascript'></script><script type='text/javascript'>var x='y';tui();</script></head>");
   }
 
   function testMetaTag()
   {
+    $x = new Head();
+    $x->addMetaTag("a", "b");
+    $this->assertEquals($x, "<head><title></title><meta name='a' content='b'></head>");
+    $x->addMetaTag("fa", "be", "x");
+    $this->assertEquals($x, "<head><title></title><meta name='a' content='b'><meta name='fa' content='be' httpEquiv='x'></head>");
+    $x->addMetaTag("fab", "beq", null, "ax");
+    $this->assertEquals($x, "<head><title></title><meta name='a' content='b'><meta name='fa' content='be' httpEquiv='x'><meta name='fab' content='beq' charset='ax'></head>");
+    $x->addMetaTag("faeb", "bequ", "p", "tax");
+    $this->assertEquals($x, "<head><title></title><meta name='a' content='b'><meta name='fa' content='be' httpEquiv='x'><meta name='fab' content='beq' charset='ax'><meta name='faeb' content='bequ' httpEquiv='p' charset='tax'></head>");
   }
 }
 

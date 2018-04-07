@@ -47,9 +47,12 @@ class Element extends \Jaypha\Component
       echo " class='",implode(" ",$this->cssClasses),"'";
     if (count($this->attributes)) {
       foreach ($this->attributes as $k => $v) {
-        echo " $k";
-        if ($v !== null)
-          echo "='",htmlspecialchars($v, ENT_QUOTES|ENT_HTML5),"'";
+        if ($v !== false)
+        {
+          echo " $k";
+          if ($v !== null && $v !== true)
+            echo "='",htmlspecialchars($v, ENT_QUOTES|ENT_HTML5),"'";
+        }
       }
     }
     if (count($this->cssStyles)) {

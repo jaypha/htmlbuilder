@@ -24,13 +24,16 @@ class ElementTest extends TestCase
   {
     $x = new Element();
     $x->attributes["dig"] = "mill'bourne";
+    $x->attributes["mix"] = true;
+    $x->attributes["null"] = null;
+    $x->attributes["absent"] = false;
     $x->tagName = "p";
     $x->id = "filly";
     $x->cssClasses[] = "some-class";
     $x->cssClasses[] = "another-class";
     $x->cssStyles["margin"] = "2px";
     $x->cssStyles["padding"] = "3px";
-    $this->assertEquals($x, "<p class='some-class another-class' dig='mill&apos;bourne' id='filly' style='margin:2px;padding:3px;'></p>");
+    $this->assertEquals($x, "<p class='some-class another-class' dig='mill&apos;bourne' mix null id='filly' style='margin:2px;padding:3px;'></p>");
     $this->assertEquals($x->id, "filly");
   }
 }
