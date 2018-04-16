@@ -47,10 +47,10 @@ class Element extends \Jaypha\Component
       echo " class='",implode(" ",$this->cssClasses),"'";
     if (count($this->attributes)) {
       foreach ($this->attributes as $k => $v) {
-        if ($v !== false)
+        if ($v !== false && $v !== null)
         {
           echo " $k";
-          if ($v !== null && $v !== true)
+          if ($v !== true)
             echo "='",htmlspecialchars($v, ENT_QUOTES|ENT_HTML5),"'";
         }
       }

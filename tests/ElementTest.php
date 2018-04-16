@@ -33,7 +33,7 @@ class ElementTest extends TestCase
     $x->cssClasses[] = "another-class";
     $x->cssStyles["margin"] = "2px";
     $x->cssStyles["padding"] = "3px";
-    $this->assertEquals($x, "<p class='some-class another-class' dig='mill&apos;bourne' mix null id='filly' style='margin:2px;padding:3px;'></p>");
+    $this->assertEquals($x, "<p class='some-class another-class' dig='mill&apos;bourne' mix id='filly' style='margin:2px;padding:3px;'></p>");
     $this->assertEquals($x->id, "filly");
   }
 }
